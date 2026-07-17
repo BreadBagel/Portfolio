@@ -8,7 +8,7 @@ import { BioInfo, Repository, Issue, Sponsor } from '../types';
 export const bioInfo: BioInfo = {
   name: "Martin Villanueva",
   username: "BreadBagel",
-  avatar: "/src/assets/images/PFP.jpg",
+  avatar: new URL('../assets/images/PFP.jpg', import.meta.url).href,
   bio: "Software Engineer building modern developer tools & delightful web experiences. Focused on Python, and Web Development. Passionate about open-source, and community-driven projects.",
   location: "Manila, Phillippines",
   website: "",

@@ -4,7 +4,7 @@
  */
 
 import React, { useState } from 'react';
-import { Award, Image, ExternalLink, ShieldCheck, Sparkles, AlertCircle, Code, HelpCircle } from 'lucide-react';
+import { Award, Image, ExternalLink, ShieldCheck, Sparkles, HelpCircle } from 'lucide-react';
 
 interface Certification {
   id: string;
@@ -28,7 +28,7 @@ export default function CertificationsTab() {
       credentialId: "",
       verificationUrl: "",
       imageUrl: "",
-      pdfUrl: "/src/assets/certifications/CCNAv7.pdf",
+      pdfUrl: new URL('../assets/certifications/CCNAv7.pdf', import.meta.url).href,
       category: "Networking"
     },
     {
@@ -39,7 +39,7 @@ export default function CertificationsTab() {
       credentialId: "",
       verificationUrl: "",
       imageUrl: "",
-      pdfUrl: "/src/assets/certifications/DevNet Associate.pdf",
+      pdfUrl: new URL('../assets/certifications/DevNet Associate.pdf', import.meta.url).href,
       category: "Networking"
     },
     {
@@ -50,7 +50,7 @@ export default function CertificationsTab() {
       credentialId: "",
       verificationUrl: "",
       imageUrl: "",
-      pdfUrl: "/src/assets/certifications/Intro to CyberSec.pdf",
+      pdfUrl: new URL('../assets/certifications/Intro to CyberSec.pdf', import.meta.url).href,
       category: "Cybersecurity"
     }
   ];
