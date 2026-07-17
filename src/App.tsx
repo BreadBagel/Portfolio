@@ -244,7 +244,7 @@ export default function App() {
       <footer className="border-t border-[#d0d7de] py-8 text-center text-xs text-[#57606a] dark:border-[#30363d] dark:text-[#8b949e] mt-auto" id="portfolio-footer">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono">
           <div className="flex items-center gap-1.5 font-sans">
-            <span className="font-bold text-xs text-[#24292f] dark:text-[#c9d1d9] font-sans">Alex Rivera</span>
+            <span className="font-bold text-xs text-[#24292f] dark:text-[#c9d1d9] font-sans">Martin C. Villanueva</span>
             <span className="text-[#57606a] dark:text-[#8b949e] font-sans">|</span>
             <span className="text-[11px] text-[#57606a] dark:text-[#8b949e] font-sans font-medium">Developer Portfolio</span>
           </div>
@@ -255,7 +255,7 @@ export default function App() {
             <button onClick={() => setActiveTab('certifications')} className="hover:text-[#0969da] dark:hover:text-[#58a6ff] cursor-pointer">Certifications</button>
             <button onClick={() => setActiveTab('contact')} className="hover:text-[#0969da] dark:hover:text-[#58a6ff] cursor-pointer">Contact</button>
           </div>
-          <span>&copy; {new Date().getFullYear()} Alex Rivera. Operational: v4.2.0-stable</span>
+          <span>&copy; {new Date().getFullYear()} Martin C. Villanueva. Operational: v4.2.0-stable</span>
         </div>
       </footer>
     </div>
