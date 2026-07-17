@@ -1,0 +1,6 @@
+{
+  "name": "GitHub-Style Developer Portfolio",
+  "description": "A high-fidelity developer portfolio inspired by GitHub's aesthetic, featuring custom profile views, repository cards, an interactive contributions grid, and an issue-tracker styled contact form.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
