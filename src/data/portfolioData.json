@@ -1,0 +1,137 @@
+{
+  "name": "Martin Villanueva",
+  "username": "BreadBagel",
+  "title": "Developer & designer",
+  "roles": [
+    "thoughtful interfaces",
+    "useful digital products",
+    "experiences that feel right"
+  ],
+  "bio": "I turn complex ideas into intuitive, quietly confident digital experiences.",
+  "about": "I'm Martin, a developer with a designer's eye and a genuine curiosity for how things work. I enjoy bringing an idea from the first rough sketch all the way to a polished, working product. My interests span thoughtful interface design, full-stack development, and machine learning that solves meaningful problems.",
+  "location": "Manila, Philippines",
+  "avatar": "/src/assets/images/PFP.jpg",
+  "available": true,
+  "socials": {
+    "github": "https://github.com/BreadBagel",
+    "linkedin": "https://www.linkedin.com/in/martin-villanueva-942443296/"
+  },
+  "contact": {
+    "email": "mcvillanueva6789@gmail.com"
+  },
+  "skills": [
+    {
+      "category": "FRONTEND",
+      "items": [
+        "React",
+        "TypeScript",
+        "JavaScript",
+        "HTML & CSS",
+        "Tailwind CSS"
+      ]
+    },
+    {
+      "category": "BACKEND",
+      "items": [
+        "Python",
+        "Node.js",
+        "Express",
+        "SQL",
+        "PostgreSQL"
+      ]
+    },
+    {
+      "category": "WORKFLOW",
+      "items": [
+        "Git & GitHub",
+        "AWS",
+        "Figma",
+        "Testing",
+        "Responsive design"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": "deepbreath",
+      "name": "DeepBreath",
+      "category": "MACHINE LEARNING / HEALTH",
+      "description": "Exploring how cough-sound analysis can help make early health insights more accessible.",
+      "details": "A research-driven concept exploring audio classification for preliminary pneumonia screening. Built an early model using a ResNet-34 architecture and logistic regression, then prepared a cloud staging environment on AWS for initial evaluation.",
+      "tags": [
+        "Python",
+        "ResNet-34",
+        "Machine learning",
+        "AWS"
+      ],
+      "visual": "sound",
+      "accent": "violet",
+      "githubUrl": "https://github.com/BreadBagel",
+      "demoUrl": "",
+      "featured": true
+    },
+    {
+      "id": "portfolio",
+      "name": "Digital home",
+      "category": "WEB DEVELOPMENT / DESIGN",
+      "description": "A little corner of the internet for the work, ideas, and details that make me who I am.",
+      "details": "A personal portfolio designed to bring software engineering and a visual design sensibility together. Made with React and TypeScript, with responsive layouts, motion details, and an editable content system.",
+      "tags": [
+        "React",
+        "TypeScript",
+        "CSS",
+        "Motion"
+      ],
+      "visual": "orbit",
+      "accent": "cyan",
+      "githubUrl": "https://github.com/BreadBagel",
+      "demoUrl": "",
+      "featured": true
+    },
+    {
+      "id": "cloud-workflow",
+      "name": "Cloud-ready workflow",
+      "category": "CLOUD / QUALITY ASSURANCE",
+      "description": "A practical deployment and testing workflow, shaped during a government tech internship.",
+      "details": "Worked on quality assurance, organized project files and cloud deployment configurations, and maintained database records during an internship with the Philippine Department of Information and Communications Technology.",
+      "tags": [
+        "AWS",
+        "Testing",
+        "Databases",
+        "Documentation"
+      ],
+      "visual": "grid",
+      "accent": "lime",
+      "githubUrl": "",
+      "demoUrl": "",
+      "featured": false
+    }
+  ],
+  "experience": [
+    {
+      "company": "Department of Information and Communications Technology",
+      "role": "Quality Assurance Analyst Intern",
+      "period": "Feb 2026 - Present",
+      "type": "INTERNSHIP",
+      "description": "Supported software quality through hands-on testing, cloud deployment preparation, and careful database record management.",
+      "skills": [
+        "Quality assurance",
+        "AWS",
+        "Database management"
+      ]
+    },
+    {
+      "company": "DeepBreath",
+      "role": "Machine Learning Project",
+      "period": "May 2025 - Jun 2025",
+      "type": "INDEPENDENT PROJECT",
+      "description": "Built an early cough-audio analysis prototype and prepared an AWS EC2 and AuroraDB staging environment for initial testing.",
+      "skills": [
+        "Python",
+        "ResNet-34",
+        "AWS",
+        "AuroraDB"
+      ]
+    }
+  ]
+}
