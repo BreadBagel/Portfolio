@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { ChangeEvent, CSSProperties, FormEvent, ReactNode } from 'react';
 import { AnimatePresence, MotionConfig, motion } from 'motion/react';
 import {
   ArrowDownRight,
   ArrowRight,
   ArrowUpRight,
+  Award,
   CloudCog,
   Check,
   ChevronDown,
@@ -104,6 +105,86 @@ const serviceIcons = {
   cloud: CloudCog,
   automation: Workflow,
 };
+
+const certifications = [
+  {
+    title: 'CCNAv7',
+    issuer: 'Cisco',
+    focus: 'Networking',
+    href: new URL('./assets/certifications/CCNAv7.pdf', import.meta.url).href,
+  },
+  {
+    title: 'DevNet Associate',
+    issuer: 'Cisco',
+    focus: 'Networking',
+    href: new URL('./assets/certifications/DevNet Associate.pdf', import.meta.url).href,
+  },
+  {
+    title: 'Intro to CyberSecurity',
+    issuer: 'Cisco',
+    focus: 'Cybersecurity',
+    href: new URL('./assets/certifications/Intro to CyberSec.pdf', import.meta.url).href,
+  },
+];
+
+function ViewportSection({ children, className, id, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby }: {
+  children: ReactNode;
+  className: string;
+  id?: string;
+  'aria-label'?: string;
+  'aria-labelledby'?: string;
+}) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setIsVisible(true);
+      return;
+    }
+
+    let frame = 0;
+    const revealWhenVisible = () => {
+      frame = 0;
+      const bounds = section.getBoundingClientRect();
+      if (bounds.top < window.innerHeight * 0.88 && bounds.bottom > 0) {
+        setIsVisible(true);
+        window.removeEventListener('scroll', scheduleCheck);
+        window.removeEventListener('resize', scheduleCheck);
+      }
+    };
+    const scheduleCheck = () => {
+      if (!frame) frame = window.requestAnimationFrame(revealWhenVisible);
+    };
+
+    window.addEventListener('scroll', scheduleCheck, { passive: true });
+    window.addEventListener('resize', scheduleCheck);
+    scheduleCheck();
+    return () => {
+      window.removeEventListener('scroll', scheduleCheck);
+      window.removeEventListener('resize', scheduleCheck);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  return (
+    <motion.section
+      className={className}
+      id={id}
+      aria-label={ariaLabel}
+      aria-labelledby={ariaLabelledby}
+      ref={sectionRef}
+      initial={{ opacity: 0, y: 22 }}
+      animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }}
+      transition={{ duration: 0.55, ease: [.22, 1, .36, 1] }}
+    >
+      {children}
+    </motion.section>
+  );
+}
 
 type AuroraBlob = { color: string; x: number; y: number; size: number };
 
@@ -272,7 +353,7 @@ export default function App() {
       </header>
 
       <main id="home">
-        <section className="intro section-wrap">
+        <ViewportSection className="intro section-wrap">
           <motion.div className="intro-copy" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .55, ease: [.22, 1, .36, 1] }}>
             <div className="overline"><span className="overline-dot" /> INDEPENDENT CREATIVE DEVELOPER</div>
             <h1>Thoughtful by nature.<br /><GradientText className="gradient-title">Precise by design.</GradientText></h1>
@@ -297,9 +378,9 @@ export default function App() {
             </div>
             <div className="portrait-footline"><span>Design-minded <i>×</i> Code-powered</span><span>01 — 04</span></div>
           </motion.div>
-        </section>
+        </ViewportSection>
 
-        <section className="metrics section-wrap" aria-label="Portfolio overview">
+        <ViewportSection className="metrics section-wrap" aria-label="Portfolio overview">
           {[
             { value: String(portfolio.projects.length).padStart(2, '0'), label: 'Project snapshots' },
             { value: String(portfolio.experience.length).padStart(2, '0'), label: 'Roles & milestones' },
@@ -308,9 +389,9 @@ export default function App() {
           ].map((metric) => (
             <div className="metric" key={metric.label}><span className="metric-value">{metric.value}</span><span className="metric-label">{metric.label}</span></div>
           ))}
-        </section>
+        </ViewportSection>
 
-        <section className="automation-section section-wrap" aria-labelledby="automation-heading">
+        <ViewportSection className="automation-section section-wrap" aria-labelledby="automation-heading">
           <div className="automation-copy">
             <span className="section-eyebrow"><span />AUTOMATION &amp; VIRTUAL ASSISTANCE</span>
             <h2 id="automation-heading">Less busywork.<br /><GradientText className="gradient-title">More human focus.</GradientText></h2>
@@ -327,9 +408,9 @@ export default function App() {
               gap={9}
             />
           </div>
-        </section>
+        </ViewportSection>
 
-        <section className="content-section section-wrap" id="work">
+        <ViewportSection className="content-section section-wrap" id="work">
           <SectionHeading number="01" eyebrow="SELECTED WORK" title={<>A few things<br /><GradientText className="gradient-title">made with care.</GradientText></>} />
           <div className="filter-row" aria-label="Filter projects">
             <span className="filter-caption">SHOW ME</span>
@@ -350,9 +431,9 @@ export default function App() {
           {filteredProjects.length === 0 && (
             <div className="empty-filter">No projects in this category just yet. <button onClick={() => setActiveFilter('All')}>Show all projects <ArrowRight size={13} /></button></div>
           )}
-        </section>
+        </ViewportSection>
 
-        <section className="services-section section-wrap" id="services">
+        <ViewportSection className="services-section section-wrap" id="services">
           <SectionHeading number="02" eyebrow="WAYS I CAN HELP" title={<>Good work starts<br /><GradientText className="gradient-title">with your goals.</GradientText></>} />
           <p className="services-intro">Need a thoughtful front end, dependable virtual assistance, or an n8n workflow to take repetitive steps off your plate? Let’s find the right scope for your project.</p>
           <div className="services-grid">
@@ -370,9 +451,9 @@ export default function App() {
             })}
           </div>
           <div className="process-note"><span className="process-note-label">HOW I WORK</span><span>Listen first</span><i>→</i><span>Agree on the scope</span><i>→</i><span>Build, share, refine</span><i>→</i><span>Clear updates, no surprises</span></div>
-        </section>
+        </ViewportSection>
 
-        <section className="about-section section-wrap" id="about">
+        <ViewportSection className="about-section section-wrap" id="about">
           <SectionHeading number="03" eyebrow="A LITTLE ABOUT ME" title={<>A curious mind,<br /><GradientText className="gradient-title">always at work.</GradientText></>} />
           <div className="about-layout">
             <GlassCard className="about-note">
@@ -396,27 +477,43 @@ export default function App() {
               })}
             </div>
           </div>
-        </section>
+        </ViewportSection>
 
-        <section className="experience-section section-wrap" id="experience">
+        <ViewportSection className="experience-section section-wrap" id="experience">
           <SectionHeading number="04" eyebrow="EXPERIENCE" title={<>A path shaped<br /><GradientText className="gradient-title">by doing.</GradientText></>} />
-          <div className="timeline">
-            {portfolio.experience.map((item, index) => (
-              <details className="timeline-entry" key={`${item.company}-${item.period}`} open={index === 0}>
-                <summary>
-                  <span className={`timeline-marker ${index === 0 ? 'timeline-marker-current' : ''}`} />
-                  <span className="timeline-date">{item.period}</span>
-                  <span className="timeline-summary"><strong>{item.role}</strong><span>{item.company}</span></span>
-                  <span className="timeline-type">{item.type}</span>
-                  <ChevronDown className="timeline-chevron" size={16} />
-                </summary>
-                <div className="timeline-details"><p>{item.description}</p><div className="skill-pills">{item.skills.map((skill) => <span className="skill-pill" key={skill}>{skill}</span>)}</div></div>
-              </details>
-            ))}
+          <div className="experience-layout">
+            <div className="timeline">
+              {portfolio.experience.map((item, index) => (
+                <details className="timeline-entry" key={`${item.company}-${item.period}`} open={index === 0}>
+                  <summary>
+                    <span className={`timeline-marker ${index === 0 ? 'timeline-marker-current' : ''}`} />
+                    <span className="timeline-date">{item.period}</span>
+                    <span className="timeline-summary"><strong>{item.role}</strong><span>{item.company}</span></span>
+                    <span className="timeline-type">{item.type}</span>
+                    <ChevronDown className="timeline-chevron" size={16} />
+                  </summary>
+                  <div className="timeline-details"><p>{item.description}</p><div className="skill-pills">{item.skills.map((skill) => <span className="skill-pill" key={skill}>{skill}</span>)}</div></div>
+                </details>
+              ))}
+            </div>
+            <aside className="certification-bar" aria-labelledby="certification-heading">
+              <div className="certification-heading">
+                <Award size={17} />
+                <div><h3 id="certification-heading">Certifications</h3><span>TECHNICAL CREDENTIALS</span></div>
+              </div>
+              <div className="certification-list">
+                {certifications.map((certification) => (
+                  <a className="certification-item" href={certification.href} key={certification.title} target="_blank" rel="noreferrer">
+                    <span className="certification-copy"><strong>{certification.title}</strong><span>{certification.issuer} · {certification.focus}</span></span>
+                    <ArrowUpRight size={14} aria-hidden="true" />
+                  </a>
+                ))}
+              </div>
+            </aside>
           </div>
-        </section>
+        </ViewportSection>
 
-        <section className="contact-section section-wrap" id="contact">
+        <ViewportSection className="contact-section section-wrap" id="contact">
           <SectionHeading number="05" eyebrow="LET'S CONNECT" title={<>Good things start<br /><GradientText className="gradient-title">with hello.</GradientText></>} />
           <div className="contact-layout">
             <div className="contact-copy">
@@ -437,7 +534,7 @@ export default function App() {
               <span className="form-note">Opens a new message in your email app.</span>
             </form>
           </div>
-        </section>
+        </ViewportSection>
       </main>
 
       <footer className="page-footer section-wrap">
