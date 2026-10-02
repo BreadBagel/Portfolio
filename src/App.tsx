@@ -146,14 +146,6 @@ function ScrollAurora() {
     };
   }, []);
 
-  if (!portfolio) return <main className="loading-screen"><span className="loading-mark">M.</span><span>Loading portfolio</span></main>;
-
-  const socialLinks = [
-    { label: 'GitHub', href: portfolio.socials.github, icon: Github },
-    { label: 'LinkedIn', href: portfolio.socials.linkedin, icon: Linkedin },
-    { label: 'Email', href: `mailto:${portfolio.contact.email}`, icon: Mail },
-  ].filter((link) => link.href);
-
   return (
     <div className="portfolio-aurora" aria-hidden="true">
       {auroraPalettes.map((blobs, index) => (
@@ -619,25 +611,5 @@ function AdminPanel({ open, onClose, portfolio, token, onAuthenticated, onSignOu
         )}
       </aside>
     </div>
-  );
-}
-
-function ProjectDialog({ project, onClose }: { project: Project; onClose: () => void }) {
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => { if (event.key === 'Escape') onClose(); };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [onClose]);
-
-  return (
-    <motion.div className="modal-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
-      <motion.article className="project-dialog glass-card" initial={{ opacity: 0, y: 20, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 10, scale: 0.98 }} transition={{ duration: 0.22 }}>
-        <button className="icon-button dialog-close" onClick={onClose} aria-label="Close project details"><X size={19} /></button>
-        <span className="eyebrow"><span className="eyebrow-line" /> PROJECT DEEP DIVE</span>
-        <h2>{project.name}</h2><p>{project.details}</p>
-        <div className="skill-tags">{project.tags.map((tag) => <span key={tag} className="skill-tag">{tag}</span>)}</div>
-        <div className="dialog-links">{project.demoUrl && <a className="button button-primary" href={project.demoUrl} target="_blank" rel="noreferrer">View project <ArrowUpRight size={15} /></a>}{project.githubUrl && <a className="button button-quiet" href={project.githubUrl} target="_blank" rel="noreferrer"><Github size={15} /> Source code</a>}</div>
-      </motion.article>
-    </motion.div>
   );
 }
