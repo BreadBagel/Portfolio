@@ -7,8 +7,8 @@
     "useful digital products",
     "experiences that feel right"
   ],
-  "bio": "I turn complex ideas into intuitive, quietly confident digital experiences.",
-  "about": "I'm Martin, a developer with a designer's eye and a genuine curiosity for how things work. I enjoy bringing an idea from the first rough sketch all the way to a polished, working product. My interests span thoughtful interface design, full-stack development, and machine learning that solves meaningful problems.",
+  "bio": "I build thoughtful, responsive web experiences. Manila-based developer open to freelance projects and early-career opportunities.",
+  "about": "I'm Martin, a Manila-based developer with a designer's eye and a genuine curiosity for how things work. I care about more than getting a page on screen: I want to understand the problem, make the experience easy to use, and deliver reliable work people can build on. I'm open to junior software development roles, internships, and freelance collaborations. My experience includes React and TypeScript interfaces, quality assurance, cloud deployment preparation, and exploring machine learning through personal projects.",
   "location": "Manila, Philippines",
   "avatar": "/src/assets/images/PFP.jpg",
   "available": true,
@@ -19,6 +19,32 @@
   "contact": {
     "email": "mcvillanueva6789@gmail.com"
   },
+  "services": [
+    {
+      "title": "Responsive web development",
+      "description": "Turn your idea into a clean, responsive web experience that feels at home on every screen.",
+      "deliverables": ["React interfaces", "Responsive layouts", "Accessible interactions"],
+      "icon": "web"
+    },
+    {
+      "title": "Interface implementation",
+      "description": "Bring product screens and visual direction to life with careful component work and attention to detail.",
+      "deliverables": ["Reusable UI components", "Polished interaction states", "Thoughtful visual details"],
+      "icon": "interface"
+    },
+    {
+      "title": "Quality & cloud support",
+      "description": "Get an extra pair of hands for testing, deployment preparation, and the data behind your application.",
+      "deliverables": ["Quality assurance", "AWS deployment preparation", "Database workflows"],
+      "icon": "cloud"
+    },
+    {
+      "title": "Virtual assistance & automation",
+      "description": "Free up time for important work with dependable virtual assistance and thoughtfully automated workflows.",
+      "deliverables": ["n8n workflow automation", "AI-assisted process support", "Administrative task coordination"],
+      "icon": "automation"
+    }
+  ],
   "skills": [
     {
       "category": "FRONTEND",
@@ -49,9 +75,41 @@
         "Testing",
         "Responsive design"
       ]
+    },
+    {
+      "category": "AUTOMATION & ASSISTANCE",
+      "items": [
+        "n8n",
+        "Workflow automation",
+        "AI-assisted workflows",
+        "Virtual assistance",
+        "Initial HR screening",
+        "Administrative support",
+        "Process coordination"
+      ]
     }
   ],
   "projects": [
+    {
+      "id": "hr-screening-workflow",
+      "name": "AI-assisted HR screening workflow",
+      "category": "WORKFLOW AUTOMATION / HR",
+      "description": "An n8n workflow using AI to support the initial HR screening process, with hiring decisions kept in human hands.",
+      "details": "Built an n8n workflow for AI-assisted initial HR screening. The workflow supports the early screening process and helps organize repetitive steps; it is intended to assist recruiters, not rank applicants or make hiring decisions. Human review remains central to evaluating candidates.",
+      "tags": [
+        "n8n",
+        "Automation",
+        "AI-assisted workflows",
+        "Human review",
+        "Architecture"
+      ],
+      "visual": "workflow",
+      "accent": "automation",
+      "githubUrl": "",
+      "demoUrl": "",
+      "featured": true,
+      "performanceBadge": "Human-reviewed workflow"
+    },
     {
       "id": "deepbreath",
       "name": "DeepBreath",
@@ -62,7 +120,8 @@
         "Python",
         "ResNet-34",
         "Machine learning",
-        "AWS"
+        "AWS",
+        "Architecture"
       ],
       "visual": "sound",
       "accent": "violet",
@@ -80,13 +139,15 @@
         "React",
         "TypeScript",
         "CSS",
-        "Motion"
+        "Motion",
+        "Design System"
       ],
       "visual": "orbit",
       "accent": "cyan",
       "githubUrl": "https://github.com/BreadBagel",
       "demoUrl": "",
-      "featured": true
+      "featured": true,
+      "performanceBadge": "Reduced-motion ready"
     },
     {
       "id": "cloud-workflow",
@@ -98,7 +159,8 @@
         "AWS",
         "Testing",
         "Databases",
-        "Documentation"
+        "Documentation",
+        "Architecture"
       ],
       "visual": "grid",
       "accent": "lime",

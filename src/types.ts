@@ -75,6 +75,7 @@ export interface Project {
   githubUrl: string;
   demoUrl: string;
   featured: boolean;
+  performanceBadge?: string;
 }
 
 export interface ExperienceItem {
@@ -84,6 +85,13 @@ export interface ExperienceItem {
   type: string;
   description: string;
   skills: string[];
+}
+
+export interface ServiceOffering {
+  title: string;
+  description: string;
+  deliverables: string[];
+  icon: 'web' | 'interface' | 'cloud' | 'automation';
 }
 
 export interface PortfolioData {
@@ -106,4 +114,5 @@ export interface PortfolioData {
   skills: SkillGroup[];
   projects: Project[];
   experience: ExperienceItem[];
+  services?: ServiceOffering[];
 }
