@@ -1,0 +1,199 @@
+{
+  "name": "Martin Villanueva",
+  "username": "BreadBagel",
+  "title": "Developer & designer",
+  "roles": [
+    "thoughtful interfaces",
+    "useful digital products",
+    "experiences that feel right"
+  ],
+  "bio": "I build thoughtful, responsive web experiences. Manila-based developer open to freelance projects and early-career opportunities.",
+  "about": "I'm Martin, a Manila-based developer with a designer's eye and a genuine curiosity for how things work. I care about more than getting a page on screen: I want to understand the problem, make the experience easy to use, and deliver reliable work people can build on. I'm open to junior software development roles, internships, and freelance collaborations. My experience includes React and TypeScript interfaces, quality assurance, cloud deployment preparation, and exploring machine learning through personal projects.",
+  "location": "Manila, Philippines",
+  "avatar": "/src/assets/images/PFP.jpg",
+  "available": true,
+  "socials": {
+    "github": "https://github.com/BreadBagel",
+    "linkedin": "https://www.linkedin.com/in/martin-villanueva-942443296/"
+  },
+  "contact": {
+    "email": "mcvillanueva6789@gmail.com"
+  },
+  "services": [
+    {
+      "title": "Responsive web development",
+      "description": "Turn your idea into a clean, responsive web experience that feels at home on every screen.",
+      "deliverables": ["React interfaces", "Responsive layouts", "Accessible interactions"],
+      "icon": "web"
+    },
+    {
+      "title": "Interface implementation",
+      "description": "Bring product screens and visual direction to life with careful component work and attention to detail.",
+      "deliverables": ["Reusable UI components", "Polished interaction states", "Thoughtful visual details"],
+      "icon": "interface"
+    },
+    {
+      "title": "Quality & cloud support",
+      "description": "Get an extra pair of hands for testing, deployment preparation, and the data behind your application.",
+      "deliverables": ["Quality assurance", "AWS deployment preparation", "Database workflows"],
+      "icon": "cloud"
+    },
+    {
+      "title": "Virtual assistance & automation",
+      "description": "Free up time for important work with dependable virtual assistance and thoughtfully automated workflows.",
+      "deliverables": ["n8n workflow automation", "AI-assisted process support", "Administrative task coordination"],
+      "icon": "automation"
+    }
+  ],
+  "skills": [
+    {
+      "category": "FRONTEND",
+      "items": [
+        "React",
+        "TypeScript",
+        "JavaScript",
+        "HTML & CSS",
+        "Tailwind CSS"
+      ]
+    },
+    {
+      "category": "BACKEND",
+      "items": [
+        "Python",
+        "Node.js",
+        "Express",
+        "SQL",
+        "PostgreSQL"
+      ]
+    },
+    {
+      "category": "WORKFLOW",
+      "items": [
+        "Git & GitHub",
+        "AWS",
+        "Figma",
+        "Testing",
+        "Responsive design"
+      ]
+    },
+    {
+      "category": "AUTOMATION & ASSISTANCE",
+      "items": [
+        "n8n",
+        "Workflow automation",
+        "AI-assisted workflows",
+        "Virtual assistance",
+        "Initial HR screening",
+        "Administrative support",
+        "Process coordination"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": "hr-screening-workflow",
+      "name": "AI-assisted HR screening workflow",
+      "category": "WORKFLOW AUTOMATION / HR",
+      "description": "An n8n workflow using AI to support the initial HR screening process, with hiring decisions kept in human hands.",
+      "details": "Built an n8n workflow for AI-assisted initial HR screening. The workflow supports the early screening process and helps organize repetitive steps; it is intended to assist recruiters, not rank applicants or make hiring decisions. Human review remains central to evaluating candidates.",
+      "tags": [
+        "n8n",
+        "Automation",
+        "AI-assisted workflows",
+        "Human review",
+        "Architecture"
+      ],
+      "visual": "workflow",
+      "accent": "automation",
+      "githubUrl": "",
+      "demoUrl": "",
+      "featured": true,
+      "performanceBadge": "Human-reviewed workflow"
+    },
+    {
+      "id": "deepbreath",
+      "name": "DeepBreath",
+      "category": "MACHINE LEARNING / HEALTH",
+      "description": "Exploring how cough-sound analysis can help make early health insights more accessible.",
+      "details": "A research-driven concept exploring audio classification for preliminary pneumonia screening. Built an early model using a ResNet-34 architecture and logistic regression, then prepared a cloud staging environment on AWS for initial evaluation.",
+      "tags": [
+        "Python",
+        "ResNet-34",
+        "Machine learning",
+        "AWS",
+        "Architecture"
+      ],
+      "visual": "sound",
+      "accent": "violet",
+      "githubUrl": "https://github.com/BreadBagel",
+      "demoUrl": "",
+      "featured": true
+    },
+    {
+      "id": "portfolio",
+      "name": "Digital home",
+      "category": "WEB DEVELOPMENT / DESIGN",
+      "description": "A little corner of the internet for the work, ideas, and details that make me who I am.",
+      "details": "A personal portfolio designed to bring software engineering and a visual design sensibility together. Made with React and TypeScript, with responsive layouts, motion details, and an editable content system.",
+      "tags": [
+        "React",
+        "TypeScript",
+        "CSS",
+        "Motion",
+        "Design System"
+      ],
+      "visual": "orbit",
+      "accent": "cyan",
+      "githubUrl": "https://github.com/BreadBagel",
+      "demoUrl": "",
+      "featured": true,
+      "performanceBadge": "Reduced-motion ready"
+    },
+    {
+      "id": "cloud-workflow",
+      "name": "Cloud-ready workflow",
+      "category": "CLOUD / QUALITY ASSURANCE",
+      "description": "A practical deployment and testing workflow, shaped during a government tech internship.",
+      "details": "Worked on quality assurance, organized project files and cloud deployment configurations, and maintained database records during an internship with the Philippine Department of Information and Communications Technology.",
+      "tags": [
+        "AWS",
+        "Testing",
+        "Databases",
+        "Documentation",
+        "Architecture"
+      ],
+      "visual": "grid",
+      "accent": "lime",
+      "githubUrl": "",
+      "demoUrl": "",
+      "featured": false
+    }
+  ],
+  "experience": [
+    {
+      "company": "Department of Information and Communications Technology",
+      "role": "Quality Assurance Analyst Intern",
+      "period": "Feb 2026 - Present",
+      "type": "INTERNSHIP",
+      "description": "Supported software quality through hands-on testing, cloud deployment preparation, and careful database record management.",
+      "skills": [
+        "Quality assurance",
+        "AWS",
+        "Database management"
+      ]
+    },
+    {
+      "company": "DeepBreath",
+      "role": "Machine Learning Project",
+      "period": "May 2025 - Jun 2025",
+      "type": "INDEPENDENT PROJECT",
+      "description": "Built an early cough-audio analysis prototype and prepared an AWS EC2 and AuroraDB staging environment for initial testing.",
+      "skills": [
+        "Python",
+        "ResNet-34",
+        "AWS",
+        "AuroraDB"
+      ]
+    }
+  ]
+}
