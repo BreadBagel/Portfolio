@@ -87,6 +87,13 @@ export interface ExperienceItem {
   skills: string[];
 }
 
+export interface CertificationItem {
+  title: string;
+  issuer: string;
+  focus: string;
+  document?: 'ccnav7' | 'devnet-associate' | 'intro-cybersecurity' | 'python-specialist';
+}
+
 export interface ServiceOffering {
   title: string;
   description: string;
@@ -114,5 +121,6 @@ export interface PortfolioData {
   skills: SkillGroup[];
   projects: Project[];
   experience: ExperienceItem[];
+  certifications?: CertificationItem[];
   services?: ServiceOffering[];
 }

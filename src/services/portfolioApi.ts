@@ -2,7 +2,7 @@ import fallbackData from '../data/portfolioData.json';
 import type { PortfolioData } from '../types';
 
 const LOCAL_KEY = 'portfolio-content';
-const bundledAvatar = new URL('../assets/images/PFP.jpg', import.meta.url).href;
+const bundledAvatar = new URL('../assets/images/PFP.png', import.meta.url).href;
 
 function withBundledAvatar(data: PortfolioData): PortfolioData {
   return data.avatar.startsWith('/src/assets/') ? { ...data, avatar: bundledAvatar } : data;

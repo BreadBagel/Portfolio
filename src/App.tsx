@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { ChangeEvent, CSSProperties, FormEvent, ReactNode } from 'react';
-import { AnimatePresence, MotionConfig, motion } from 'motion/react';
+import { AnimatePresence, MotionConfig, motion, useReducedMotion } from 'motion/react';
+import { ReactLenis } from 'lenis/react';
 import {
   ArrowDownRight,
   ArrowRight,
@@ -12,6 +13,8 @@ import {
   Code2,
   Component,
   Copy,
+  Download,
+  FileText,
   Github,
   Linkedin,
   LockKeyhole,
@@ -29,11 +32,29 @@ import {
 import { Aurora, GlassCard, GradientText, SlippyWords } from 'performative-ui';
 import type { SlippyWord } from 'performative-ui';
 import { authenticateAdmin, loadPortfolio, savePortfolio } from './services/portfolioApi';
-import type { PortfolioData, Project } from './types';
+import type { CertificationItem, PortfolioData, Project } from './types';
 import type { ServiceOffering } from './types';
 
 const projectFilters = ['All', 'React', 'Architecture', 'Design System', 'Automation'] as const;
 type ProjectFilter = (typeof projectFilters)[number];
+
+const portfolioEase = [.22, 1, .36, 1] as const;
+const introSequence = {
+  hidden: {},
+  visible: { transition: { delayChildren: .08, staggerChildren: .075 } },
+};
+const introItem = {
+  hidden: { opacity: 0, y: 12 },
+  visible: { opacity: 1, y: 0, transition: { duration: .42, ease: portfolioEase } },
+};
+
+const resumeHref = new URL('./assets/resume/mcvillanueva_resume - Copy.pdf', import.meta.url).href;
+const certificationDocuments: Record<NonNullable<CertificationItem['document']>, string> = {
+  ccnav7: new URL('./assets/certifications/CCNAv7.pdf', import.meta.url).href,
+  'devnet-associate': new URL('./assets/certifications/DevNet Associate.pdf', import.meta.url).href,
+  'intro-cybersecurity': new URL('./assets/certifications/Intro to CyberSec.pdf', import.meta.url).href,
+  'python-specialist': new URL('./assets/certifications/IT_Certifcation_Python.pdf', import.meta.url).href,
+};
 
 const sectionLinks = [
   { id: 'work', label: 'Work' },
@@ -46,9 +67,10 @@ const sectionLinks = [
 const skillCategories = [
   { title: 'Frontend', keywords: ['React', 'TypeScript', 'JavaScript', 'HTML & CSS', 'Tailwind CSS'] },
   { title: 'Languages', keywords: ['TypeScript', 'JavaScript', 'Python', 'SQL'] },
-  { title: 'Architecture', keywords: ['Node.js', 'Express', 'PostgreSQL', 'AWS', 'AuroraDB', 'Workflow automation', 'n8n'] },
+  { title: 'Architecture', keywords: ['Node.js', 'Express', 'Flask', 'REST APIs', 'PostgreSQL', 'AWS', 'AWS EC2', 'AuroraDB', 'Linux', 'Web scraping', 'Workflow automation', 'n8n'] },
   { title: 'Styling', keywords: ['Tailwind CSS', 'HTML & CSS', 'Figma', 'Responsive design'] },
-  { title: 'Automation & assistance', keywords: ['n8n', 'Workflow automation', 'AI-assisted workflows', 'Virtual assistance', 'Initial HR screening', 'Administrative support', 'Process coordination'] },
+  { title: 'Automation & assistance', keywords: ['n8n', 'Zapier', 'Workflow automation', 'AI-assisted workflows', 'Virtual assistance', 'Initial HR screening', 'Email automation', 'Administrative support', 'Process coordination'] },
+  { title: 'Operations & support', keywords: ['Quality assurance', 'Defect tracking', 'Test coverage', 'Requirements review', 'Product catalog management', 'Google Sheets', 'Microsoft 365', 'Technical support', 'Workstation setup', 'User training', 'Customer support systems', 'Technical documentation', 'Team collaboration', 'Project coordination', 'Analytical thinking'] },
 ];
 
 const automationWordRows: SlippyWord[][] = [
@@ -106,27 +128,6 @@ const serviceIcons = {
   automation: Workflow,
 };
 
-const certifications = [
-  {
-    title: 'CCNAv7',
-    issuer: 'Cisco',
-    focus: 'Networking',
-    href: new URL('./assets/certifications/CCNAv7.pdf', import.meta.url).href,
-  },
-  {
-    title: 'DevNet Associate',
-    issuer: 'Cisco',
-    focus: 'Networking',
-    href: new URL('./assets/certifications/DevNet Associate.pdf', import.meta.url).href,
-  },
-  {
-    title: 'Intro to CyberSecurity',
-    issuer: 'Cisco',
-    focus: 'Cybersecurity',
-    href: new URL('./assets/certifications/Intro to CyberSec.pdf', import.meta.url).href,
-  },
-];
-
 function ViewportSection({ children, className, id, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby }: {
   children: ReactNode;
   className: string;
@@ -179,7 +180,7 @@ function ViewportSection({ children, className, id, 'aria-label': ariaLabel, 'ar
       ref={sectionRef}
       initial={{ opacity: 0, y: 22 }}
       animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }}
-      transition={{ duration: 0.55, ease: [.22, 1, .36, 1] }}
+      transition={{ duration: 0.48, ease: portfolioEase }}
     >
       {children}
     </motion.section>
@@ -202,6 +203,49 @@ const auroraPalettes: AuroraBlob[][] = [
 ];
 
 const MotionGlassCard = motion.create(GlassCard);
+
+export default function App() {
+  const prefersReducedMotion = useReducedMotion();
+
+  return (
+    <ReactLenis
+      root
+      options={{
+        autoRaf: true,
+        anchors: !prefersReducedMotion,
+        lerp: prefersReducedMotion ? 1 : 0.085,
+        smoothWheel: !prefersReducedMotion,
+      }}
+    >
+      <MotionConfig reducedMotion="user">
+        <PortfolioApp />
+      </MotionConfig>
+    </ReactLenis>
+  );
+}
+
+function ScrollIndicator() {
+  const prefersReducedMotion = useReducedMotion();
+  return (
+    <motion.a
+      className="scroll-indicator"
+      href="#overview"
+      aria-label="Scroll to learn more about me"
+      initial={{ opacity: 0, y: 6 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: .2, ease: portfolioEase }}
+    >
+      <span>Scroll to learn more</span>
+      <motion.span
+        className="scroll-indicator-icon"
+        animate={prefersReducedMotion ? undefined : { y: [0, 5, 0] }}
+        transition={{ duration: 1.4, ease: 'easeInOut', repeat: Infinity }}
+      >
+        <ChevronDown size={16} aria-hidden="true" />
+      </motion.span>
+    </motion.a>
+  );
+}
 
 function ScrollAurora() {
   const [paletteIndex, setPaletteIndex] = useState(0);
@@ -234,7 +278,7 @@ function ScrollAurora() {
           className="portfolio-aurora-layer"
           key={index}
           animate={{ opacity: paletteIndex === index ? 1 : 0 }}
-          transition={{ duration: 1.4, ease: [.22, 1, .36, 1] }}
+          transition={{ duration: .7, ease: [.22, 1, .36, 1] }}
         >
           <Aurora className="portfolio-aurora-field" blobs={blobs} blur={42} />
         </motion.div>
@@ -243,8 +287,9 @@ function ScrollAurora() {
   );
 }
 
-export default function App() {
+function PortfolioApp() {
   const [portfolio, setPortfolio] = useState<PortfolioData | null>(null);
+  const [headerVisible, setHeaderVisible] = useState(true);
   const [editing, setEditing] = useState(false);
   const [adminOpen, setAdminOpen] = useState(false);
   const [token, setToken] = useState(() => sessionStorage.getItem('portfolio-admin-token') ?? '');
@@ -253,6 +298,30 @@ export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [toast, setToast] = useState('');
   const [emailCopied, setEmailCopied] = useState(false);
+
+  useEffect(() => {
+    let previousY = window.scrollY;
+    let frame = 0;
+    const updateHeaderVisibility = () => {
+      frame = 0;
+      const currentY = window.scrollY;
+      const delta = currentY - previousY;
+      if (currentY < 24 || mobileMenuOpen || delta < -6) {
+        setHeaderVisible(true);
+      } else if (delta > 6) {
+        setHeaderVisible(false);
+      }
+      previousY = currentY;
+    };
+    const handleScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(updateHeaderVisibility);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, [mobileMenuOpen]);
 
   useEffect(() => {
     let active = true;
@@ -312,7 +381,13 @@ export default function App() {
   };
 
   if (!portfolio) {
-    return <main className="loading-screen"><span className="loading-mark">m.</span><span>Loading portfolio</span></main>;
+    return (
+      <main className="loading-screen" role="status" aria-label="Loading portfolio">
+        <motion.span className="loading-mark" animate={{ opacity: [.55, 1, .55] }} transition={{ duration: 1.5, ease: 'easeInOut', repeat: Infinity }}>m.</motion.span>
+        <span className="loading-copy">Loading my portfolio</span>
+        <span className="loading-track" aria-hidden="true"><motion.span animate={{ scaleX: [0.2, 0.85, 0.35] }} transition={{ duration: 1.7, ease: 'easeInOut', repeat: Infinity }} /></span>
+      </main>
+    );
   }
 
   const filteredProjects = portfolio.projects.filter((project) => (
@@ -326,10 +401,9 @@ export default function App() {
   const services = portfolio.services?.length ? portfolio.services : defaultServices;
 
   return (
-    <MotionConfig reducedMotion="user">
     <div className="portfolio">
       <ScrollAurora />
-      <header className="nav-wrap">
+      <header className={`nav-wrap ${headerVisible ? '' : 'nav-wrap-hidden'}`}>
         <a className="brand" href="#home" aria-label="Home">
           <span className="brand-mark">m.</span>
           <span>{portfolio.name}<small>Developer &amp; designer</small></span>
@@ -340,8 +414,8 @@ export default function App() {
           ))}
         </nav>
         <div className="nav-actions">
-          <a className={`status-pill ${portfolio.available ? '' : 'status-pill-away'}`} href={`mailto:${portfolio.contact.email}`}>
-            <span className="status-light" />{portfolio.available ? 'Available for work' : 'Not taking projects'}
+          <a className={`status-pill ${portfolio.available ? '' : 'status-pill-away'}`} href={`mailto:${portfolio.contact.email}`} aria-label={portfolio.available ? 'Available for work' : 'Not taking projects'}>
+            <span className="status-light" /><span className="status-copy">{portfolio.available ? 'Available for work' : 'Not taking projects'}</span>
           </a>
           <button className="admin-toggle" onClick={() => setAdminOpen(true)}>
             {token ? 'Edit mode' : 'Admin'} <MoveUpRight size={13} />
@@ -354,38 +428,43 @@ export default function App() {
 
       <main id="home">
         <ViewportSection className="intro section-wrap">
-          <motion.div className="intro-copy" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .55, ease: [.22, 1, .36, 1] }}>
-            <div className="overline"><span className="overline-dot" /> INDEPENDENT CREATIVE DEVELOPER</div>
-            <h1>Thoughtful by nature.<br /><GradientText className="gradient-title">Precise by design.</GradientText></h1>
-            <p className="intro-description">
+          <motion.div className="intro-copy" variants={introSequence} initial="hidden" animate="visible">
+            <motion.div className="overline" variants={introItem}><span className="overline-dot" /> INDEPENDENT CREATIVE DEVELOPER</motion.div>
+            <motion.div
+              className="intro-portrait"
+              initial={{ opacity: 0, scale: .94, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ type: 'spring', stiffness: 150, damping: 24, delay: .08 }}
+            >
+              <div className="portrait-frame">
+                <img src={portfolio.avatar} alt={portfolio.name} />
+              </div>
+            </motion.div>
+            <motion.h1 variants={introItem}>Hi, I'm Martin.<br /><GradientText className="gradient-title">I build with care.</GradientText></motion.h1>
+            <motion.p className="intro-description" variants={introItem}>
               <EditableField value={portfolio.bio} editing={editing} onChange={(bio) => update('bio', bio)} />
-            </p>
-            <div className="intro-meta">
+            </motion.p>
+            <motion.div className="intro-meta" variants={introItem}>
               <span className="location-badge"><MapPin size={13} />{portfolio.location}</span>
               <span className="intro-separator" />
               <span className="intro-note">Open to freelance &amp; early-career roles</span>
-            </div>
-            <div className="intro-actions">
-              <a className="action-primary" href="#work">Explore selected work <ArrowUpRight size={15} /></a>
-              <a className="action-secondary" href="#contact">Get in touch <ArrowDownRight size={15} /></a>
-            </div>
+            </motion.div>
+            <motion.div className="intro-actions" variants={introItem}>
+              <a className="action-primary" href="#work">Explore my work <ArrowUpRight size={15} /></a>
+              <a className="action-secondary" href={resumeHref} target="_blank" rel="noreferrer" aria-label="View Martin Villanueva's resume PDF">
+                <FileText size={14} /> View résumé <Download size={13} />
+              </a>
+            </motion.div>
           </motion.div>
-          <motion.div className="intro-portrait" initial={{ opacity: 0, scale: .97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: .7, delay: .12 }}>
-            <div className="portrait-topline"><span>INDEPENDENT · MANILA</span><span>14° 35′ N</span></div>
-            <div className="portrait-frame">
-              <img src={portfolio.avatar} alt={portfolio.name} />
-              <div className="portrait-caption"><span>A LITTLE CURIOSITY GOES A LONG WAY</span><strong>{portfolio.name}</strong></div>
-            </div>
-            <div className="portrait-footline"><span>Design-minded <i>×</i> Code-powered</span><span>01 — 04</span></div>
-          </motion.div>
+          <ScrollIndicator />
         </ViewportSection>
 
-        <ViewportSection className="metrics section-wrap" aria-label="Portfolio overview">
+        <ViewportSection className="metrics section-wrap" id="overview" aria-label="Portfolio overview">
           {[
             { value: String(portfolio.projects.length).padStart(2, '0'), label: 'Project snapshots' },
             { value: String(portfolio.experience.length).padStart(2, '0'), label: 'Roles & milestones' },
             { value: String(uniqueSkills.size).padStart(2, '0'), label: 'Tools in my kit' },
-            { value: '03', label: 'Ways to work together' },
+            { value: String(services.length).padStart(2, '0'), label: 'Ways to work together' },
           ].map((metric) => (
             <div className="metric" key={metric.label}><span className="metric-value">{metric.value}</span><span className="metric-label">{metric.label}</span></div>
           ))}
@@ -394,7 +473,7 @@ export default function App() {
         <ViewportSection className="automation-section section-wrap" aria-labelledby="automation-heading">
           <div className="automation-copy">
             <span className="section-eyebrow"><span />AUTOMATION &amp; VIRTUAL ASSISTANCE</span>
-            <h2 id="automation-heading">Less busywork.<br /><GradientText className="gradient-title">More human focus.</GradientText></h2>
+            <h2 id="automation-heading">I build workflows<br /><GradientText className="gradient-title">that free up your time.</GradientText></h2>
             <p>I build practical n8n workflows and provide virtual assistance for the tasks that keep good work moving. My AI-assisted HR screening workflow supports the initial process—with people, not AI, making hiring decisions.</p>
             <a className="automation-link" href="#work">See the HR workflow <ArrowUpRight size={14} /></a>
           </div>
@@ -411,7 +490,7 @@ export default function App() {
         </ViewportSection>
 
         <ViewportSection className="content-section section-wrap" id="work">
-          <SectionHeading number="01" eyebrow="SELECTED WORK" title={<>A few things<br /><GradientText className="gradient-title">made with care.</GradientText></>} />
+          <SectionHeading number="01" eyebrow="SELECTED WORK" title={<>Here's what<br /><GradientText className="gradient-title">I've been creating.</GradientText></>} />
           <div className="filter-row" aria-label="Filter projects">
             <span className="filter-caption">SHOW ME</span>
             {projectFilters.map((filter) => (
@@ -434,19 +513,26 @@ export default function App() {
         </ViewportSection>
 
         <ViewportSection className="services-section section-wrap" id="services">
-          <SectionHeading number="02" eyebrow="WAYS I CAN HELP" title={<>Good work starts<br /><GradientText className="gradient-title">with your goals.</GradientText></>} />
+          <SectionHeading number="02" eyebrow="WAYS I CAN HELP" title={<>Here's how I<br /><GradientText className="gradient-title">can help you.</GradientText></>} />
           <p className="services-intro">Need a thoughtful front end, dependable virtual assistance, or an n8n workflow to take repetitive steps off your plate? Let’s find the right scope for your project.</p>
           <div className="services-grid">
             {services.map((service, index) => {
               const Icon = serviceIcons[service.icon] ?? PanelsTopLeft;
               return (
-                <GlassCard className="service-card" key={service.title}>
+                <MotionGlassCard
+                  className="service-card"
+                  key={service.title}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: .15 }}
+                  transition={{ duration: .32, delay: index * .055, ease: portfolioEase }}
+                >
                   <div className="service-card-top"><span className="service-index">0{index + 1}</span><span className="service-icon"><Icon size={17} /></span></div>
                   <h3>{service.title}</h3>
                   <p>{service.description}</p>
                   <div className="service-deliverables">{service.deliverables.map((deliverable) => <span key={deliverable}><Check size={12} />{deliverable}</span>)}</div>
                   <a href={`mailto:${portfolio.contact.email}?subject=${encodeURIComponent(`Let's discuss ${service.title}`)}`} className="service-cta">Discuss your project <ArrowUpRight size={13} /></a>
-                </GlassCard>
+                </MotionGlassCard>
               );
             })}
           </div>
@@ -454,7 +540,7 @@ export default function App() {
         </ViewportSection>
 
         <ViewportSection className="about-section section-wrap" id="about">
-          <SectionHeading number="03" eyebrow="A LITTLE ABOUT ME" title={<>A curious mind,<br /><GradientText className="gradient-title">always at work.</GradientText></>} />
+          <SectionHeading number="03" eyebrow="A LITTLE ABOUT ME" title={<>I'm curious,<br /><GradientText className="gradient-title">and always learning.</GradientText></>} />
           <div className="about-layout">
             <GlassCard className="about-note">
               <span className="note-index"><Sparkles size={14} /> THE SHORT VERSION</span>
@@ -480,7 +566,7 @@ export default function App() {
         </ViewportSection>
 
         <ViewportSection className="experience-section section-wrap" id="experience">
-          <SectionHeading number="04" eyebrow="EXPERIENCE" title={<>A path shaped<br /><GradientText className="gradient-title">by doing.</GradientText></>} />
+          <SectionHeading number="04" eyebrow="EXPERIENCE" title={<>I've learned<br /><GradientText className="gradient-title">by doing.</GradientText></>} />
           <div className="experience-layout">
             <div className="timeline">
               {portfolio.experience.map((item, index) => (
@@ -502,19 +588,25 @@ export default function App() {
                 <div><h3 id="certification-heading">Certifications</h3><span>TECHNICAL CREDENTIALS</span></div>
               </div>
               <div className="certification-list">
-                {certifications.map((certification) => (
-                  <a className="certification-item" href={certification.href} key={certification.title} target="_blank" rel="noreferrer">
-                    <span className="certification-copy"><strong>{certification.title}</strong><span>{certification.issuer} · {certification.focus}</span></span>
-                    <ArrowUpRight size={14} aria-hidden="true" />
-                  </a>
-                ))}
+                {portfolio.certifications?.map((certification) => {
+                  const content = (
+                    <>
+                      <span className="certification-copy"><strong>{certification.title}</strong><span>{certification.issuer} · {certification.focus}</span></span>
+                      {certification.document && <ArrowUpRight size={14} aria-hidden="true" />}
+                    </>
+                  );
+                  const href = certification.document ? certificationDocuments[certification.document] : undefined;
+                  return href
+                    ? <a className="certification-item" href={href} key={certification.title} target="_blank" rel="noreferrer">{content}</a>
+                    : <div className="certification-item" key={certification.title}>{content}</div>;
+                })}
               </div>
             </aside>
           </div>
         </ViewportSection>
 
         <ViewportSection className="contact-section section-wrap" id="contact">
-          <SectionHeading number="05" eyebrow="LET'S CONNECT" title={<>Good things start<br /><GradientText className="gradient-title">with hello.</GradientText></>} />
+          <SectionHeading number="05" eyebrow="LET'S CONNECT" title={<>I'd love to<br /><GradientText className="gradient-title">hear from you.</GradientText></>} />
           <div className="contact-layout">
             <div className="contact-copy">
               <p>Hiring for an early-career role? Looking for help with a web project? Share what you have in mind and let’s see if we’re a good fit.</p>
@@ -560,7 +652,6 @@ export default function App() {
         {toast && <motion.div className="toast" role="status" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }}><Check size={15} />{toast}</motion.div>}
       </AnimatePresence>
     </div>
-    </MotionConfig>
   );
 }
 
@@ -575,7 +666,15 @@ function SectionHeading({ number, eyebrow, title }: { number: string; eyebrow: s
 
 function ProjectCard({ project, index, onSelect }: { project: Project; index: number; onSelect: (project: Project) => void }) {
   return (
-    <MotionGlassCard className="project-card" layout initial={{ opacity: 0, y: 13 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }} transition={{ duration: .24, ease: [.22, 1, .36, 1] }}>
+    <MotionGlassCard
+      className="project-card"
+      layout
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: .12 }}
+      exit={{ opacity: 0, y: 8 }}
+      transition={{ duration: .3, delay: Math.min(index, 5) * .045, ease: portfolioEase }}
+    >
       <button className={`project-preview preview-${project.accent}`} onClick={() => onSelect(project)} aria-label={`Open ${project.name} details`}>
         <ProjectArtwork visual={project.visual} />
         <span className="preview-category">{project.category}</span><span className="preview-number">0{index + 1}</span>

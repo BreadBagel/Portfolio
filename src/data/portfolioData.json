@@ -7,10 +7,10 @@
     "useful digital products",
     "experiences that feel right"
   ],
-  "bio": "I build thoughtful, responsive web experiences. Manila-based developer open to freelance projects and early-career opportunities.",
-  "about": "I'm Martin, a Manila-based developer with a designer's eye and a genuine curiosity for how things work. I care about more than getting a page on screen: I want to understand the problem, make the experience easy to use, and deliver reliable work people can build on. I'm open to junior software development roles, internships, and freelance collaborations. My experience includes React and TypeScript interfaces, quality assurance, cloud deployment preparation, and exploring machine learning through personal projects.",
+  "bio": "I'm a Manila-based developer who builds responsive web experiences and practical automations. I bring hands-on experience across quality assurance, e-commerce operations, IT support, and cloud-backed software projects.",
+  "about": "I'm Martin, a Manila-based developer with a designer's eye and a practical, collaborative approach to solving problems. I studied Computer Science, specializing in Software Engineering, at FEU Institute of Technology (2022-2026). My experience spans e-commerce catalog operations and Python web scraping, software quality assurance for a procurement platform, technical support, and full-stack development for a machine-learning thesis project. I have also coordinated cross-functional project work and built workflow automations for scheduling, email triage, and initial HR screening. I'm open to early-career software roles and freelance collaborations where I can contribute, keep learning, and deliver dependable work.",
   "location": "Manila, Philippines",
-  "avatar": "/src/assets/images/PFP.jpg",
+  "avatar": "/src/assets/images/PFP.png",
   "available": true,
   "socials": {
     "github": "https://github.com/BreadBagel",
@@ -62,8 +62,13 @@
         "Python",
         "Node.js",
         "Express",
+        "Flask",
+        "REST APIs",
         "SQL",
-        "PostgreSQL"
+        "PostgreSQL",
+        "AWS EC2",
+        "Linux",
+        "Web scraping"
       ]
     },
     {
@@ -73,15 +78,32 @@
         "AWS",
         "Figma",
         "Testing",
-        "Responsive design"
+        "Responsive design",
+        "Quality assurance",
+        "Defect tracking",
+        "Test coverage",
+        "Requirements review",
+        "Technical documentation",
+        "Team collaboration",
+        "Project coordination",
+        "Analytical thinking"
       ]
     },
     {
       "category": "AUTOMATION & ASSISTANCE",
       "items": [
         "n8n",
+        "Zapier",
         "Workflow automation",
         "AI-assisted workflows",
+        "Email automation",
+        "Google Sheets",
+        "Microsoft 365",
+        "Workstation setup",
+        "User training",
+        "Product catalog management",
+        "Technical support",
+        "Customer support systems",
         "Virtual assistance",
         "Initial HR screening",
         "Administrative support",
@@ -89,13 +111,39 @@
       ]
     }
   ],
+  "certifications": [
+    {
+      "title": "CCNAv7: Introduction to Networks",
+      "issuer": "Cisco Networking Academy",
+      "focus": "Networking",
+      "document": "ccnav7"
+    },
+    {
+      "title": "DevNet Associate",
+      "issuer": "Cisco Networking Academy",
+      "focus": "Networking",
+      "document": "devnet-associate"
+    },
+    {
+      "title": "Introduction to Cybersecurity",
+      "issuer": "Cisco Networking Academy",
+      "focus": "Cybersecurity",
+      "document": "intro-cybersecurity"
+    },
+    {
+      "title": "IT Specialist: Python",
+      "issuer": "Pearson",
+      "focus": "Python",
+      "document": "python-specialist"
+    }
+  ],
   "projects": [
     {
       "id": "hr-screening-workflow",
       "name": "AI-assisted HR screening workflow",
       "category": "WORKFLOW AUTOMATION / HR",
-      "description": "An n8n workflow using AI to support the initial HR screening process, with hiring decisions kept in human hands.",
-      "details": "Built an n8n workflow for AI-assisted initial HR screening. The workflow supports the early screening process and helps organize repetitive steps; it is intended to assist recruiters, not rank applicants or make hiring decisions. Human review remains central to evaluating candidates.",
+      "description": "An n8n workflow prototype using a local Gemma 4 agent to process initial applications, prepare tailored emails, and coordinate interviews.",
+      "details": "Built an n8n HR initial-screening workflow that reads resumes from Google Drive, sends them to a local Gemma 4 agent for evaluation, handles repeated form submissions, prepares outcome-specific emails, and schedules interviews for shortlisted applicants through Google Sheets with a two-hour scheduling window. Any real hiring outcome should remain subject to recruiter review; the AI output is not a substitute for human judgment.",
       "tags": [
         "n8n",
         "Automation",
@@ -108,14 +156,14 @@
       "githubUrl": "",
       "demoUrl": "",
       "featured": true,
-      "performanceBadge": "Human-reviewed workflow"
+      "performanceBadge": "Local Gemma 4 agent"
     },
     {
       "id": "deepbreath",
       "name": "DeepBreath",
       "category": "MACHINE LEARNING / HEALTH",
       "description": "Exploring how cough-sound analysis can help make early health insights more accessible.",
-      "details": "A research-driven concept exploring audio classification for preliminary pneumonia screening. Built an early model using a ResNet-34 architecture and logistic regression, then prepared a cloud staging environment on AWS for initial evaluation.",
+      "details": "A cough-sound analysis thesis project exploring preliminary pneumonia screening with ResNet-34 and logistic regression. Developed a Flask REST API for inference, deployed backend services on AWS EC2, and connected the Android application to the cloud through HTTP/JSON APIs. As project coordinator, aligned work across the Android app, backend, cloud infrastructure, and machine-learning pipeline.",
       "tags": [
         "Python",
         "ResNet-34",
@@ -128,26 +176,6 @@
       "githubUrl": "https://github.com/BreadBagel",
       "demoUrl": "",
       "featured": true
-    },
-    {
-      "id": "portfolio",
-      "name": "Digital home",
-      "category": "WEB DEVELOPMENT / DESIGN",
-      "description": "A little corner of the internet for the work, ideas, and details that make me who I am.",
-      "details": "A personal portfolio designed to bring software engineering and a visual design sensibility together. Made with React and TypeScript, with responsive layouts, motion details, and an editable content system.",
-      "tags": [
-        "React",
-        "TypeScript",
-        "CSS",
-        "Motion",
-        "Design System"
-      ],
-      "visual": "orbit",
-      "accent": "cyan",
-      "githubUrl": "https://github.com/BreadBagel",
-      "demoUrl": "",
-      "featured": true,
-      "performanceBadge": "Reduced-motion ready"
     },
     {
       "id": "cloud-workflow",
@@ -167,32 +195,120 @@
       "githubUrl": "",
       "demoUrl": "",
       "featured": false
+    },
+    {
+      "id": "email-escalation",
+      "name": "AI email escalation",
+      "category": "WORKFLOW AUTOMATION / EMAIL",
+      "description": "An n8n and local Gemma workflow that sorts incoming email and escalates sensitive messages for human review.",
+      "details": "Connected Gmail to a locally hosted Gemma model through n8n. The workflow assesses incoming messages, distinguishes routine messages from those requiring human intervention, and escalates high-priority or sensitive emails instead of automatically handling them.",
+      "tags": [
+        "n8n",
+        "Automation",
+        "AI-assisted workflows",
+        "Email automation",
+        "Human review"
+      ],
+      "visual": "grid",
+      "accent": "automation",
+      "githubUrl": "",
+      "demoUrl": "",
+      "featured": true,
+      "performanceBadge": "Sensitive messages escalated"
+    },
+    {
+      "id": "zapier-scheduler",
+      "name": "Automatic form scheduler",
+      "category": "WORKFLOW AUTOMATION / SCHEDULING",
+      "description": "A Zapier workflow that turns form submissions into scheduled calendar events and confirmation emails.",
+      "details": "Automated appointment scheduling by connecting Google Forms, Google Sheets, Google Calendar, and Gmail. Form responses are recorded, calendar events are created, and confirmation emails are sent to reduce repetitive scheduling and manual data entry.",
+      "tags": [
+        "Zapier",
+        "Automation",
+        "Google Forms",
+        "Google Sheets",
+        "Google Calendar"
+      ],
+      "visual": "grid",
+      "accent": "cyan",
+      "githubUrl": "",
+      "demoUrl": "",
+      "featured": true
+    },
+    {
+      "id": "supportdesk-crm",
+      "name": "SupportDesk CRM",
+      "category": "FULL-STACK / CUSTOMER SUPPORT",
+      "description": "A role-based support CRM prototype for managing customers, service tickets, communication, and activity.",
+      "details": "Built as an AI-assisted development project using Google AI Studio, Google Antigravity, and Visual Studio Copilot Agent, with React, TypeScript, Express, and JSON-file storage. The prototype includes role-based access for administrators, agents, and customers; ticket search, assignment, updates, and resolution; customer records; activity logs; and an analytics dashboard.",
+      "tags": [
+        "React",
+        "TypeScript",
+        "Express",
+        "CRM",
+        "Architecture"
+      ],
+      "visual": "grid",
+      "accent": "violet",
+      "githubUrl": "",
+      "demoUrl": "https://supportdesk-crm-mcvillanueva.vercel.app",
+      "featured": true
     }
   ],
   "experience": [
     {
-      "company": "Department of Information and Communications Technology",
-      "role": "Quality Assurance Analyst Intern",
-      "period": "Feb 2026 - Present",
+      "company": "Ollopa Corporation",
+      "role": "IT / E-commerce Specialist Intern",
+      "period": "Aug 2026 - Present",
       "type": "INTERNSHIP",
-      "description": "Supported software quality through hands-on testing, cloud deployment preparation, and careful database record management.",
+      "description": "Managed product listings and catalog quality for Shoparino8. Automated product and image collection with Python web scraping, organized inventory migration data in Google Sheets, and used AI/LLM tools to accelerate product-description drafting.",
       "skills": [
-        "Quality assurance",
-        "AWS",
-        "Database management"
+        "Product catalog management",
+        "Python",
+        "Web scraping",
+        "Google Sheets",
+        "AI-assisted workflows"
       ]
     },
     {
-      "company": "DeepBreath",
-      "role": "Machine Learning Project",
-      "period": "May 2025 - Jun 2025",
-      "type": "INDEPENDENT PROJECT",
-      "description": "Built an early cough-audio analysis prototype and prepared an AWS EC2 and AuroraDB staging environment for initial testing.",
+      "company": "Department of Information and Communications Technology",
+      "role": "Quality Assurance Intern",
+      "period": "Feb 2026 - Jun 2026",
+      "type": "INTERNSHIP",
+      "description": "Supported testing for the Regional Procurement and Bidding System. Documented and tracked defects, reproduced issues to help identify root causes, reviewed requirements and workflows, and contributed to comprehensive test coverage.",
+      "skills": [
+        "Quality assurance",
+        "Defect tracking",
+        "Test coverage",
+        "Requirements review"
+      ]
+    },
+    {
+      "company": "Columbia Merchandising Company",
+      "role": "IT Technical Support & Consultant",
+      "period": "Mar 2025 - Dec 2025",
+      "type": "CONTRACT",
+      "description": "Prepared and configured workstations, installed software, and resolved computer and application issues. Helped employees use Microsoft 365 and supported hardware and peripheral setup.",
+      "skills": [
+        "Technical support",
+        "Microsoft 365",
+        "Workstation setup",
+        "User training"
+      ]
+    },
+    {
+      "company": "FEU Institute of Technology · DeepBreath",
+      "role": "Full-Stack Developer & Project Coordinator",
+      "period": "2024 - 2025",
+      "type": "THESIS PROJECT",
+      "description": "Coordinated delivery across the Android app, Flask backend, AWS infrastructure, and AI inference pipeline. Built backend services for model inference and authentication, configured AWS EC2, and integrated ResNet-34 and logistic-regression models through HTTP/JSON APIs.",
       "skills": [
         "Python",
+        "Flask",
+        "AWS EC2",
         "ResNet-34",
-        "AWS",
-        "AuroraDB"
+        "REST APIs",
+        "Project coordination"
       ]
     }
   ]
